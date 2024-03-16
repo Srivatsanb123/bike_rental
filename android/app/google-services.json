@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "107861929323",
+    "firebase_url": "https://tracked-17c25-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tracked-17c25",
+    "storage_bucket": "tracked-17c25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107861929323:android:74f31ee61f15362a69b02e",
+        "android_client_info": {
+          "package_name": "com.example.bike_rental"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDypFrvOYdfBfbG9Sj6ptceFuPOixC_QJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
