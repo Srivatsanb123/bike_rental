@@ -1,6 +1,8 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, library_private_types_in_public_api, file_names
 import 'package:bike_rental/ProfileScreen.dart';
 import 'package:bike_rental/RentScreen.dart';
 import 'package:bike_rental/language_change_controller.dart';
+import 'package:bike_rental/settings.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,20 +52,30 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _screens = [
-      HomeScreen(),
+      const HomeScreen(),
       RentScreen(bicycleDataList: _bicycleDataList),
-      ProfileScreen(),
+      const ProfileScreen(),
+      const SettingsPage(),
     ];
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(60),
         child: ClipRRect(
+          borderRadius:
+              const BorderRadius.vertical(bottom: Radius.circular(20)),
           child: Container(
             width: double.infinity,
-            color: Colors.lightGreen,
+            color: Colors.green,
             child: AppBar(
-              title: Text(AppLocalizations.of(context)!.title),
+              title: Text(
+                AppLocalizations.of(context)!.title,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               actions: [
                 Consumer<LanguageChangeController>(
                   builder: (context, provider, child) {
@@ -111,6 +123,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         selectedItemColor: Colors.blue,
