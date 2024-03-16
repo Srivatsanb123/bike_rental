@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
 enum Language { english, tamil, hindi }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   final DatabaseReference _databaseReference =
       FirebaseDatabase.instance.ref().child('cycleData');
 
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _screens = [
-      const HomePage(),
+      HomeScreen(),
       RentScreen(bicycleDataList: _bicycleDataList),
       ProfileScreen(),
     ];
@@ -59,11 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ClipRRect(
-          borderRadius:
-              const BorderRadius.vertical(bottom: Radius.circular(20)),
           child: Container(
             width: double.infinity,
-            color: Colors.orange,
+            color: Colors.lightGreen,
             child: AppBar(
               title: Text(AppLocalizations.of(context)!.title),
               actions: [
@@ -124,8 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
