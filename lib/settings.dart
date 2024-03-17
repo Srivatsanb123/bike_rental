@@ -49,11 +49,6 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: Text('Notifications'),
-              subtitle: const Text('Configure app notifications'),
-              leading: const Icon(Icons.notifications),
-            ),
-            ListTile(
               title: Text("Sign Out"),
               leading: const Icon(Icons.logout),
               onTap: signUserOut,

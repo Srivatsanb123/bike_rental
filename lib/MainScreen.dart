@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, library_private_types_in_public_api, file_names
 import 'package:bike_rental/HomeScreen.dart';
 import 'package:bike_rental/RentScreen.dart';
+import 'package:bike_rental/chat.dart';
 import 'package:bike_rental/language_change_controller.dart';
 import 'package:bike_rental/settings.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -21,24 +22,33 @@ class _MainScreenState extends State<MainScreen> {
   final DatabaseReference _databaseReference =
       FirebaseDatabase.instance.ref().child('cycleData');
 
-  late List<BicycleData> _bicycleDataList;
+  List<BicycleData> _bicycleDataList = [];
   int _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _bicycleDataList = []; // Initialize an empty list
     _databaseReference.onValue.listen((event) {
       if (event.snapshot.value != null) {
-        final Map<dynamic, dynamic> data =
-            event.snapshot.value as Map<dynamic, dynamic>; // Explicit cast
+        final Map<dynamic, dynamic>? data =
+            event.snapshot.value as Map<dynamic, dynamic>?; // Correct cast
         final List<BicycleData> tempList = [];
-        data.forEach((key, value) {
-          tempList.add(BicycleData.fromJson(value));
-        });
-        setState(() {
-          _bicycleDataList = tempList;
-        });
+        print(data);
+        if (data != null) {
+          data.forEach((type, cyclesMap) {
+            cyclesMap.forEach(
+              (cycleKey, location) {
+                BicycleData temp =
+                    BicycleData(name: cycleKey, location: location, type: type);
+                tempList.add(temp);
+              },
+            );
+          });
+          print(tempList);
+          setState(() {
+            _bicycleDataList = tempList;
+          });
+        }
       }
     });
   }
@@ -54,6 +64,11 @@ class _MainScreenState extends State<MainScreen> {
     List<Widget> _screens = [
       const HomeScreen(),
       RentScreen(bicycleDataList: _bicycleDataList),
+      ChatPage(
+          maintitle: 'Title',
+          message: 'Message',
+          isSender: true,
+          time: DateTime.now()),
       const SettingsPage(),
     ];
 
@@ -118,6 +133,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.book_online),
             label: 'Rent',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'ChatBot',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

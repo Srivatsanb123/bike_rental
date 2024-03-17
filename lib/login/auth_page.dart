@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'package:bike_rental/HomeScreen.dart';
 import 'package:bike_rental/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:bike_rental/login/login_signup.dart';

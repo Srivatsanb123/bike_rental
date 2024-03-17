@@ -1,72 +1,112 @@
-// ignore_for_file: file_names
+// ignore_for_file: library_private_types_in_public_api, file_names
 
-import 'package:bike_rental/ValidateAadhar.dart';
+import 'package:bike_rental/PaymentScreen.dart';
 import 'package:flutter/material.dart';
 
-List<BicycleData> bicycleList = [];
+class RentScreen extends StatefulWidget {
+  final List<BicycleData> bicycleDataList;
 
-class BicycleData {
-  final String type;
-  final String count;
-  final String status;
+  const RentScreen({Key? key, required this.bicycleDataList}) : super(key: key);
 
-  BicycleData({
-    required this.type,
-    required this.count,
-    required this.status,
-  });
+  @override
+  _RentScreenState createState() => _RentScreenState();
+}
 
-  factory BicycleData.fromJson(Map<dynamic, dynamic> json) {
-    return BicycleData(
-      type: json['type'] ?? '',
-      count: json['count'] ?? '',
-      status: json['status'] ?? '',
+class _RentScreenState extends State<RentScreen> {
+  late List<BicycleData> _eCycleList;
+  late List<BicycleData> _mtbList;
+  late List<BicycleData> _normalList;
+
+  @override
+  void initState() {
+    super.initState();
+    _eCycleList =
+        widget.bicycleDataList.where((data) => data.type == "ecycle").toList();
+    _mtbList =
+        widget.bicycleDataList.where((data) => data.type == "mtb").toList();
+    _normalList =
+        widget.bicycleDataList.where((data) => data.type == "normal").toList();
+  }
+
+  void _onCycleSelected(BicycleData selectedCycle) {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => PaymentScreen(selectedCycle)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Rent a Bicycle'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCycleList('E-Cycles', _eCycleList),
+            _buildCycleList('MTB', _mtbList),
+            _buildCycleList('Normal Bicycles', _normalList),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCycleList(String title, List<BicycleData> cycleList) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: cycleList.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(cycleList[index].name),
+              subtitle: Text('Location: ${cycleList[index].location}'),
+              onTap: () {
+                _onCycleSelected(cycleList[index]);
+              },
+            );
+          },
+        ),
+      ],
     );
   }
 }
 
-class RentScreen extends StatelessWidget {
-  final List<BicycleData> bicycleDataList;
+enum BicycleType {
+  eCycle,
+  mtb,
+  normal,
+}
 
-  const RentScreen({Key? key, required this.bicycleDataList}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: bicycleDataList.length,
-          itemBuilder: (context, index) {
-            final bicycleData = bicycleDataList[index];
-            return Card(
-              elevation: 3,
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ListTile(
-                leading: const Icon(Icons.directions_bike),
-                title: Text(
-                  'Bicycle Type: ${bicycleData.type}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 4.0),
-                    Text('Available Count: ${bicycleData.count}'),
-                    const SizedBox(height: 4.0),
-                    Text('Status: ${bicycleData.status}'),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VerifyPage()),
-                  );
-                },
-              ),
-            );
-          },
-        ),
-      ),
+class BicycleData {
+  final String name;
+  final String location;
+  late final String type;
+
+  BicycleData({
+    required this.name,
+    required this.location,
+    required this.type,
+  });
+
+  factory BicycleData.fromJson(Map<String, dynamic> json) {
+    return BicycleData(
+      name: json['name'],
+      location: json['location'],
+      type: json['type'],
     );
   }
 }
