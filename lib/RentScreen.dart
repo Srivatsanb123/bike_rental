@@ -1,4 +1,5 @@
-import 'package:bike_rental/Payment.dart';
+// ignore_for_file: file_names
+
 import 'package:bike_rental/ValidateAadhar.dart';
 import 'package:flutter/material.dart';
 
@@ -32,26 +33,26 @@ class RentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: bicycleDataList.length,
           itemBuilder: (context, index) {
             final bicycleData = bicycleDataList[index];
             return Card(
               elevation: 3,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListTile(
-                leading: Icon(Icons.directions_bike),
+                leading: const Icon(Icons.directions_bike),
                 title: Text(
                   'Bicycle Type: ${bicycleData.type}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     Text('Available Count: ${bicycleData.count}'),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     Text('Status: ${bicycleData.status}'),
                   ],
                 ),

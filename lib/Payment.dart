@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, file_names, deprecated_member_use, avoid_print, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:upi_india/upi_india.dart';

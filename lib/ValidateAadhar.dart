@@ -1,10 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:bike_rental/Payment.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:field_validation/Source_Code/FlutterValidation.dart';
-import 'package:flutter/material.dart';
-import 'package:field_validation/Source_Code/FlutterValidation.dart';
-import 'package:bike_rental/Payment.dart'; // Import the PaymentPage
 
 class AadharNumberFormatter extends TextInputFormatter {
   @override
@@ -33,7 +32,9 @@ class VerifyPage extends StatelessWidget {
   // Creating Object of the FieldValidator class.
   FlutterValidation validator = FlutterValidation();
   TextEditingController aadharController = TextEditingController();
-  AadharNumberFormatter formatter = AadharNumberFormatter(); // Custom formatter
+  AadharNumberFormatter formatter = AadharNumberFormatter();
+
+  VerifyPage({super.key}); // Custom formatter
 
   @override
   Widget build(BuildContext context) {
