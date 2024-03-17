@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
-
-import 'package:bike_rental/PaymentScreen.dart';
+import 'package:bike_rental/payment.dart';
 import 'package:flutter/material.dart';
 
 class RentScreen extends StatefulWidget {
@@ -29,8 +28,8 @@ class _RentScreenState extends State<RentScreen> {
   }
 
   void _onCycleSelected(BicycleData selectedCycle) {
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => PaymentScreen(selectedCycle)));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => PaymentPage()));
   }
 
   @override

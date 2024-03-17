@@ -1,7 +1,7 @@
 // ignore_for_file: unused_field
 
 import 'dart:convert';
-import 'package:flutter_tts/flutter_tts.dart';
+//import 'package:flutter_tts/flutter_tts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -28,7 +28,7 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _chatController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final List<Map<String, dynamic>> _chatHistory = [];
-  final FlutterTts flutterTts = FlutterTts();
+  //final FlutterTts flutterTts = FlutterTts();
   bool _isSpeaking = false;
 
   @override
@@ -44,7 +44,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void speak(String botResponse) async {
-    await flutterTts.speak(botResponse);
+    //await flutterTts.speak(botResponse);
   }
 
   void getAnswer() async {
