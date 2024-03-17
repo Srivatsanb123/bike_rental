@@ -54,22 +54,6 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: const Icon(Icons.notifications),
             ),
             ListTile(
-              title: Text('Languages'),
-              subtitle: const Text('Configure app languages'),
-              leading: const Icon(Icons.language),
-              /*trailing: DropdownButton(
-                value: _currentLocale, // Set the initially selected option
-                items: const [
-                  DropdownMenuItem(value: "en", child: Text("English")),
-                  DropdownMenuItem(value: "ta", child: Text("தமிழ்")),
-                  DropdownMenuItem(value: "hi", child: Text("हिंदी"))
-                ],
-                onChanged: (String? value) {
-                  _setLocale(value);
-                },
-              ),*/
-            ),
-            ListTile(
               title: Text("Sign Out"),
               leading: const Icon(Icons.logout),
               onTap: signUserOut,

@@ -45,6 +45,9 @@ dependencies:
   rflutter_alert: ^2.0.7
   google_sign_in: ^6.2.1
   connectivity_plus: ^5.0.2
+  upi_india: ^3.0.1
+  field_validation: ^0.0.1
+  mask_text_input_formatter: ^2.9.0
 
 dev_dependencies:
   flutter_test:
