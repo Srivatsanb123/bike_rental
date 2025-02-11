@@ -17,7 +17,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<UpiResponse>? _transaction;
   final UpiIndia _upiIndia = UpiIndia();
   List<UpiApp>? apps;
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
   TextStyle header = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,

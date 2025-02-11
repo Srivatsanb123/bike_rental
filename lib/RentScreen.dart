@@ -29,7 +29,7 @@ class _RentScreenState extends State<RentScreen> {
 
   void _onCycleSelected(BicycleData selectedCycle) {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => PaymentPage()));
+        context, MaterialPageRoute(builder: (context) => const PaymentPage()));
   }
 
   @override

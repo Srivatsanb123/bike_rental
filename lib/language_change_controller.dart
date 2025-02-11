@@ -7,9 +7,9 @@ class LanguageChangeController extends ChangeNotifier {
 
   void changeLanguage(Locale type) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    if (type == Locale('en')) {
+    if (type == const Locale('en')) {
       await sp.setString('language_code', 'en');
-    } else if (type == Locale('ta')) {
+    } else if (type == const Locale('ta')) {
       await sp.setString('language_code', 'ta');
     } else {
       await sp.setString('language_code', 'hi');
