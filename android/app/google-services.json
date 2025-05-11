@@ -3,7 +3,7 @@
     "project_number": "107861929323",
     "firebase_url": "https://tracked-17c25-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "tracked-17c25",
-    "storage_bucket": "tracked-17c25.appspot.com"
+    "storage_bucket": "tracked-17c25.firebasestorage.app"
   },
   "client": [
     {
@@ -13,7 +13,20 @@
           "package_name": "com.example.bike_rental"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "107861929323-etbn1avv23fcarg7g55u75jk77p8jge1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bike_rental",
+            "certificate_hash": "a434fda6bb5f05f73c878b28ded63787a8ae17a2"
+          }
+        },
+        {
+          "client_id": "107861929323-v3cjcb57oob017u7psefmcsg308c4luf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDypFrvOYdfBfbG9Sj6ptceFuPOixC_QJI"
@@ -21,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107861929323-v3cjcb57oob017u7psefmcsg308c4luf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "107861929323-1bunuhss0bmeadf9o4rc718kj4ehq30h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bikeRental"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,7 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key});
@@ -27,20 +26,20 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'MTB (Mountain Bike):',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Text(
-                      AppLocalizations.of(context)!.mtb,
-                      style: const TextStyle(fontSize: 18),
+                      'Perfect for off-road and mountainous terrain.',
+                      style: TextStyle(fontSize: 18),
                     ),
                   ],
                 ),
@@ -52,20 +51,20 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Normal Bicycle:',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Text(
-                      AppLocalizations.of(context)!.normal,
-                      style: const TextStyle(fontSize: 18),
+                      'Ideal for daily commuting and casual riding.',
+                      style: TextStyle(fontSize: 18),
                     ),
                   ],
                 ),
@@ -77,20 +76,20 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Electric Bicycle:',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Text(
-                      AppLocalizations.of(context)!.ecycle,
-                      style: const TextStyle(fontSize: 18),
+                      'Powered by electricity for effortless riding.',
+                      style: TextStyle(fontSize: 18),
                     ),
                   ],
                 ),

@@ -2,12 +2,9 @@
 import 'package:bike_rental/HomeScreen.dart';
 import 'package:bike_rental/RentScreen.dart';
 import 'package:bike_rental/chat.dart';
-import 'package:bike_rental/language_change_controller.dart';
 import 'package:bike_rental/settings.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,8 +12,6 @@ class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
-
-enum Language { english, tamil, hindi }
 
 class _MainScreenState extends State<MainScreen> {
   final DatabaseReference _databaseReference =
@@ -31,9 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     _databaseReference.onValue.listen((event) {
       if (event.snapshot.value != null) {
         final Map<dynamic, dynamic>? data =
-            event.snapshot.value as Map<dynamic, dynamic>?; // Correct cast
+            event.snapshot.value as Map<dynamic, dynamic>?;
         final List<BicycleData> tempList = [];
-        print(data);
         if (data != null) {
           data.forEach((type, cyclesMap) {
             cyclesMap.forEach(
@@ -44,7 +38,6 @@ class _MainScreenState extends State<MainScreen> {
               },
             );
           });
-          print(tempList);
           setState(() {
             _bicycleDataList = tempList;
           });
@@ -82,40 +75,14 @@ class _MainScreenState extends State<MainScreen> {
             width: double.infinity,
             color: Colors.green,
             child: AppBar(
-              title: Text(
-                AppLocalizations.of(context)!.title,
-                style: const TextStyle(
+              title: const Text(
+                'Bike Rental',
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              actions: [
-                Consumer<LanguageChangeController>(
-                  builder: (context, provider, child) {
-                    return PopupMenuButton(
-                      onSelected: (Language item) {
-                        if (Language.english.name == item.name) {
-                          provider.changeLanguage(const Locale('en'));
-                        } else if (Language.tamil.name == item.name) {
-                          provider.changeLanguage(const Locale('ta'));
-                        } else {
-                          provider.changeLanguage(const Locale('hi'));
-                        }
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<Language>>[
-                        const PopupMenuItem(
-                            value: Language.english, child: Text('English')),
-                        const PopupMenuItem(
-                            value: Language.tamil, child: Text('Tamil')),
-                        const PopupMenuItem(
-                            value: Language.hindi, child: Text('Hindi')),
-                      ],
-                    );
-                  },
-                )
-              ],
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 10,

@@ -1,9 +1,8 @@
 // ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bike_rental/login/login_signup.dart';
 
-// ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -12,139 +11,106 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  void resetPassword(String email) async {
+  final User? user = FirebaseAuth.instance.currentUser;
+
+  void resetPassword() async {
+    if (user?.email == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("No email found for this account.")),
+      );
+      return;
+    }
+
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      print('Password reset email sent to $email');
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: user!.email!);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Password reset email sent to ${user!.email!}")),
+      );
     } catch (error) {
       print('Error sending password reset email: $error');
-      // Handle the error appropriately, e.g., show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to send password reset email.")),
+      );
     }
   }
 
-  bool check = false;
-
   @override
   Widget build(BuildContext context) {
-    if (userName == null) {
-      check = true;
-    }
+    final String displayName = user?.displayName ?? "No user name";
+    final String email = user?.email ?? "No email found";
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: ClipRRect(
-          borderRadius:
-              const BorderRadius.vertical(bottom: Radius.circular(20)),
-          child: Container(
-            width: double.infinity,
-            color: Colors.green,
-            child: AppBar(
-              title: const Text(
-                "Profile",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.transparent,
-              elevation: 10,
-            ),
-          ),
+      appBar: AppBar(
+        title: const Text(
+          "Profile",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
-          Container(
-            width: double.infinity,
-            height: 200,
-            color: const Color.fromARGB(
-                255, 255, 255, 255), // Change the color as needed
-            child: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage(
-                        'assets/images/profile.png'), // Replace with your image asset
-                  ),
-                ],
-              ),
+          const SizedBox(height: 20),
+          Center(
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('assets/images/profile.png'),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  displayName,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  email,
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 20),
-          buildProfileRow(
-              Icons.person, 'Username', userName ??= "No user name"),
-          buildProfileRow(Icons.email, 'E-mail', userEmail ??= "No user email"),
-          // ignore: unrelated_type_equality_checks
-          (check)
-              ? Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: GestureDetector(
-                    onTap: () {
-                      //resetPassword(userEmail!);
-                    },
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.lock,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Reset password",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "********",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : const SizedBox(),
+          const SizedBox(height: 30),
+          buildProfileRow(Icons.person, "Username", displayName),
+          buildProfileRow(Icons.email, "Email", email),
+          if (user?.email != null)
+            ListTile(
+              leading: const Icon(Icons.lock),
+              title: const Text(
+                "Reset Password",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text("Tap to receive reset email"),
+              onTap: resetPassword,
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            ),
         ],
       ),
     );
   }
 
-  Widget buildProfileRow(IconData icon, String label, String value) {
+  Widget buildProfileRow(IconData icon, String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: const Color.fromARGB(255, 0, 0, 0),
-          ),
+          Icon(icon, color: Colors.black),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                title,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Text(
-                value,
-                style: const TextStyle(fontSize: 14),
-              ),
+              Text(value, style: const TextStyle(fontSize: 14)),
             ],
           ),
         ],

@@ -60,7 +60,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '107861929323',
     projectId: 'tracked-17c25',
     databaseURL: 'https://tracked-17c25-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'tracked-17c25.appspot.com',
+    storageBucket: 'tracked-17c25.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
